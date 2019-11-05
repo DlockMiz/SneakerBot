@@ -1,0 +1,10 @@
+.mat-card {
+  margin-top: 1%;
+  width: 500px;
+  height: 600px;
+  align-content: center;
+  margin-left: 38%;
+}
+.mat-card-title {
+  color: 	#4250B5;
+}

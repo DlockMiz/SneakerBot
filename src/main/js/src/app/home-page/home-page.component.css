@@ -1,0 +1,65 @@
+
+.newTask {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.mat-header-row {
+  min-height: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  box-sizing: border-box;
+  background-color:	#4250B5;
+  box-shadow: 2px 2px 2px;
+}
+
+.mat-table {
+  display: block;
+}
+
+.mat-cell, .mat-header-cell {
+  flex: 1;
+  overflow: hidden;
+  font-size: inherit;
+  word-wrap: break-word;
+}
+
+.mat-header-cell {
+  color: ghostwhite;
+}
+
+.startTasks {
+  color: ghostwhite;
+  background-color: forestgreen;
+  margin-top: 2%;
+  margin-left: 1.5%;
+}
+.endTask{
+  color: ghostwhite;
+  background-color: crimson;
+  margin-left: 64%;
+  margin-top: 2%;
+}
+.clearTask {
+  color: ghostwhite;
+  background-color: crimson;
+  margin-left: 7%;
+  margin-top: 2%;
+}
+
+.taskInfoOne {
+  padding-left: 20px;
+}
+
+.taskInfoTwo {
+  margin-left: 50px;
+}
+
+.span {
+  padding-left: 20px;
+}
+

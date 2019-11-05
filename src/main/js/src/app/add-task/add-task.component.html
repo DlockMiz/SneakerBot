@@ -1,0 +1,48 @@
+<mat-card fxLayout="column">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card-title fxLayoutAlign="center">Create Task</mat-card-title>
+  <table fxLayoutAlign="center" class="example-full-width" cellspacing="0"><tr>
+    <mat-form-field>
+      <mat-label>Website</mat-label>
+      <select matNativeControl required formControlName="site">
+        <option value="supreme">Supreme</option>
+      </select>
+    </mat-form-field>
+  </tr></table>
+  <table fxLayoutAlign="center" class="example-full-width" cellspacing="0"><tr>
+    <mat-form-field>
+      <mat-label>Size</mat-label>
+      <mat-select formControlName="size">
+        <mat-option name="shoeChoice" ngDefaultControl *ngFor="let shoe of sizes; let i=index;" [value]="sizes[i]">
+          {{shoe}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </tr></table>
+  <table fxLayoutAlign="center" class="example-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="example-full-width">
+        <input name="productName" formControlName="product" ngDefaultControl matInput placeholder="Product Name">
+        <mat-hint></mat-hint>
+      </mat-form-field></td>
+  </tr></table>
+  <table fxLayoutAlign="center" class="example-full-width" cellspacing="0"><tr>
+    <mat-form-field>
+      <mat-label>Billing</mat-label>
+      <mat-select formControlName="billing">
+        <mat-option name="billChoice" ngDefaultControl *ngFor="let bill of billing; let i=index;" [value]="billing[i]">
+          {{bill}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </tr></table>
+  <table fxLayoutAlign="center" class="example-full-width" cellspacing="0"><tr>
+    <mat-form-field>
+      <mat-label>Proxy</mat-label>
+      <select matNativeControl required formControlName="proxy">
+        <option name="proxy" ngDefaultControl>US</option>
+      </select>
+    </mat-form-field>
+  </tr></table>
+  <button mat-raised-button color="primary">Add</button>
+  </form>
+</mat-card>

@@ -1,0 +1,66 @@
+<mat-card fxLayout="column">
+  <mat-card-title fxLayoutAlign="center">Billing Information</mat-card-title>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="First Name">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+    <input matInput placeholder="Last Name">
+  </mat-form-field></td>
+
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Card Number" type="text" id="cardNumber" cc-eager-type name="ccNumber" ngModel="card.number">
+      <mat-hint>XXXX-XXXX-XXXX-XXXX</mat-hint>
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Expiration Date">
+      <mat-hint>08/05</mat-hint>
+    </mat-form-field></td>
+
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Zipcode">
+    </mat-form-field></td>
+
+  </tr></table>
+  <mat-card-title fxLayoutAlign="center">Shipping Information</mat-card-title>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="First Name">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Last Name">
+    </mat-form-field></td>
+  </tr></table>
+
+  <table class="example-full-width"><tr>
+  <td><mat-form-field class="example-full-width">
+    <input matInput placeholder="Address Line 1">
+  </mat-form-field></td>
+</tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Address Line 2">
+    </mat-form-field></td>
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Zipcode">
+    </mat-form-field></td>
+    <mat-form-field>
+      <mat-label>State</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let state of States; let i = index">
+          {{this.state}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </tr></table>
+  <button mat-raised-button color="primary" fxLayoutAlign="center">Submit</button>
+
+
+  <mat-divider></mat-divider>
+</mat-card>

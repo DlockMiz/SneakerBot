@@ -1,1 +1,35 @@
-<p>Lets go home page changed on prod!</p>
+<div fxLayout="row">
+  <button class="newTask" mat-raised-button color="primary" fxLayoutAlign="left" (click)="addTask()">+ New Task</button>
+</div>
+<mat-accordion multi class="mat-table">
+  <section class="mat-header-row">
+    <span class="mat-header-cell">#</span>
+    <span class="mat-header-cell">Site</span>
+    <span class="mat-header-cell">Size</span>
+    <span class="mat-header-cell">Product</span>
+    <span class="mat-header-cell">Billing</span>
+    <span class="mat-header-cell">Proxy List</span>
+    <span class="mat-header-cell">Status</span>
+  </section>
+</mat-accordion>
+<mat-card>
+<mat-card-content>
+  <div class="container">
+      <section>
+      <span *ngFor="let task of TaskList">
+        <td class="taskInfoOne">{{task.ID}}</td>
+        <td class="taskInfoTwo">{{task.site}}</td>
+        <td class="taskInfoThree">{{task.size}}</td>
+        <td class="taskInfoFour">{{task.product}}</td>
+        <td class="taskInfoFive">{{task.billing}}</td>
+        <td class="taskInfoSix">{{task.proxy}}</td>
+      </span>
+      </section>
+  </div>
+</mat-card-content>
+</mat-card>
+<div fxLayout="row">
+<button mat-raised-button class="startTasks" fxLayoutAlign="left">Start All</button>
+  <button mat-raised-button class="endTask" fxLayoutAlign="right">End All</button>
+  <button mat-raised-button class="clearTask"fxLayoutAlign="right" (click)="clearTasks()">Clear Tasks</button>
+</div>
