@@ -31,6 +31,10 @@ task angularBuild(type: NpmTask, dependsOn: ["install"]){
 	args = ['run','build']
 }
 
+task devServer(type:NpmTask, dependsOn: ["install"]){
+	args = ['run', 'start']
+}
+
 bootJar {
 	launchScript()
 }
