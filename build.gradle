@@ -39,10 +39,6 @@ bootJar {
 	launchScript()
 }
 
-test {
-	useJUnitPlatform()
-}
-
 tasks.bootJar.dependsOn(angularBuild)
 
 
