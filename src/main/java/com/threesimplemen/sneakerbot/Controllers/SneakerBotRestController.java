@@ -11,6 +11,7 @@ public class SneakerBotRestController {
 
     @RequestMapping("/findSneaker")
     public void findSneaker(Order order){
+        order = new Order();
         seleniumController.findSneaker(order);
     }
 }
