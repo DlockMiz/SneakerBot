@@ -1,7 +1,8 @@
 package com.threesimplemen.sneakerbot.Models;
 
 public class Shoe {
-    public String shoeName;
-    public String shoeSize;
-    public String shoePicture;
+    public String shoeSize = "M 10 / W 11.5";
+    public String shoeName = "Air Jordan 1 High Zoom Fearless";
+    public String shoeType = "Shoe";
+    public String shoeColor = "";
 }

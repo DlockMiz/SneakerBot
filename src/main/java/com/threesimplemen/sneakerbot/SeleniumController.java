@@ -1,60 +1,70 @@
 package com.threesimplemen.sneakerbot;
 
 import com.threesimplemen.sneakerbot.Models.Order;
-import com.threesimplemen.sneakerbot.Models.Shoe;
+import com.threesimplemen.sneakerbot.Models.FoundShoe;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SeleniumController {
-
+    SimpMessageSendingOperations template;
     WebDriver driver;
     Order order;
-    Shoe shoe;
+    FoundShoe foundShoe;
 
-    public void findSneaker(Order order){
-        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver");
-        this.driver = new ChromeDriver();
-        this.order = order;
-        this.shoe = new Shoe();
+    public SeleniumController(FoundShoe foundShoe, WebDriver driver, SimpMessageSendingOperations template){
+        this.foundShoe = foundShoe;
+        this.driver = driver;
+        this.template = template;
+    }
+
+    public FoundShoe findSneaker(Order order){
         driver.get("https://www.nike.com/w/new-3n82y");
         List<WebElement> shoeList = driver.findElements(By.cssSelector("figure"));
 
         for(WebElement figure: shoeList){
             WebElement shoe = figure.findElement(By.className("product-card__link-overlay"));
             if(shoe.getText().matches(this.order.shoeName)){
+                this.foundShoe.shoeName = shoe.getText();
+                template.convertAndSend("/shoe_status", this.foundShoe);
                 driver.get(shoe.getAttribute("href"));
-                this.shoe.shoeName = shoe.getText();
                 findSize();
-                System.out.println(this.shoe.shoePicture);
+                addToCart();
+                return this.foundShoe;
             }
         }
+        return this.foundShoe;
     }
 
     private void findSize(){
         List<WebElement> labelsList = new ArrayList<>();
         List<WebElement> inputSizes = driver.findElements(By.xpath("//*[contains(@name,'skuAndSize')]"));
         for(WebElement input: inputSizes){
-            String num = input.getAttribute("value");
-            String[] num1 = num.split(":");
-            String finalNum = num1[0];
+            String finalNum = input.getAttribute("value").split(":")[0];
             labelsList.add(driver.findElement(By.xpath("//*[contains(@for,'skuAndSize__"+finalNum+"')]")));
         }
         for(WebElement label: labelsList){
             if(label.getText().matches(this.order.shoeSize)){
-                this.shoe.shoeSize = label.getText();
+                template.convertAndSend("/shoe_status", this.foundShoe);
+                this.foundShoe.shoeSize = label.getText();
                 label.click();
             }
         }
     }
 
-    private void findPicture(){
-        String combinedShoe = "Low Resolution "+this.order.shoeName+" "+this.order.shoeType;
-        WebElement pictureURL = driver.findElement(By.xpath("//img[contains(@alt,\""+combinedShoe+"\")]"));
-        this.shoe.shoePicture = pictureURL.getAttribute("src");
+    private void addToCart(){
+        WebElement addToCartBtn = driver.findElement(By.xpath("//button[contains(@class,'addToCartBtn')]"));
+        addToCartBtn.click();
+        try{
+            Thread.sleep(2000);
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        template.convertAndSend("/shoe_status", this.foundShoe);
+        driver.get("https://www.nike.com/us/en/checkout");
     }
 }
