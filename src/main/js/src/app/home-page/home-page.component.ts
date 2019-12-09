@@ -66,13 +66,6 @@ public finalPaylaod: string;
       width: '425px',
       height: '490px'
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-
-
-    });
-
-
   }
 
   clearTasks(){
@@ -94,11 +87,15 @@ public finalPaylaod: string;
       this.shoeJson = JSON.stringify(info);
 
     }
-    let jsonPayload = '{"shoe":' + this.shoeJson + ', "shippingDetails":' + this.shippingJson + ', "paymentInformation":' + this.paymentJson + '}';
-    console.log(jsonPayload);
-    // axios.post("/findSneaker", jsonPayload).then(function(response){
-    //   console.log(response.data)
-    // })
+    var obj = {
+      "shoe": this.shoelist[0],
+      "shippingDetails": this.ShippingInfoList[0],
+      "paymentInformation": this.paymentList[0]
+    }
+
+    axios.post("/findSneaker", obj).then(function(response){
+      console.log(response.data)
+    })
   }
 
 
