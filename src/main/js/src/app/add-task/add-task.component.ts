@@ -1,19 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {Shoe} from "../Model/shoe";
 
-export interface Task {
-  id: number;
-  site: string;
-  size: number;
-  product: string;
-  billing: string;
-  proxy: string;
-  status: string;
-}
 
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {TaskServiceService} from '../Service/task-service.service';
+import {ShoeService} from "../Service/shoe.service";
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
@@ -30,16 +23,15 @@ export class AddTaskComponent implements OnInit {
               public dialog: MatDialog,
               public formBuilder: FormBuilder,
               public _taskService: TaskServiceService,
+              public _shoeService: ShoeService,
               ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      ID: [],
-      site: [''],
-      size: [],
-      product: [''],
-      billing: [''],
-      proxy: [''],
+      shoeSize: [''],
+      shoeName: [''],
+      shoeType: [''],
+      shoeColor: [''],
     });
   }
 
@@ -49,8 +41,10 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit(){
+    // console.log(this.form.value);
+    //     // this._taskService.addTask(this.form.value);
     console.log(this.form.value);
-    this._taskService.addTask(this.form.value);
+    this._shoeService.addShoe(this.form.value);
     this.dialogRef.close();
   }
 }

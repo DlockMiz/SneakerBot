@@ -1,66 +1,96 @@
 <mat-card fxLayout="column">
-  <mat-card-title fxLayoutAlign="center">Billing Information</mat-card-title>
+  <form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+  <mat-card-title fxLayoutAlign="center">Shipping Details</mat-card-title>
   <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="First Name">
+      <input matInput placeholder="First Name" formControlName="firstName">
     </mat-form-field></td>
     <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="Last Name">
+    <input matInput placeholder="Last Name" formControlName="lastName">
   </mat-form-field></td>
 
   </tr></table>
   <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Card Number" type="text" id="cardNumber" cc-eager-type name="ccNumber" ngModel="card.number">
-      <mat-hint>XXXX-XXXX-XXXX-XXXX</mat-hint>
-    </mat-form-field></td>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Expiration Date">
-      <mat-hint>08/05</mat-hint>
-    </mat-form-field></td>
-
-  </tr></table>
-  <table class="example-full-width" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Zipcode">
-    </mat-form-field></td>
-
-  </tr></table>
-  <mat-card-title fxLayoutAlign="center">Shipping Information</mat-card-title>
-  <table class="example-full-width" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="First Name">
-    </mat-form-field></td>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Last Name">
-    </mat-form-field></td>
-  </tr></table>
-
-  <table class="example-full-width"><tr>
-  <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="Address Line 1">
+    <input matInput placeholder="Address" formControlName="address" type="text" id="Address">
   </mat-form-field></td>
-</tr></table>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="City" formControlName="city">
+    </mat-form-field></td>
+
+  </tr></table>
   <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Address Line 2">
+      <input matInput placeholder="State" formControlName="state">
+      <mat-hint>FUll NAME</mat-hint>
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Zipcode" formControlName="postalCode">
+    </mat-form-field></td>
+
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Email" formControlName="email">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Phone Number" formControlName="phoneNumber">
+    </mat-form-field></td>
+
+  </tr></table>
+  <mat-card-title fxLayoutAlign="center">Billing Details</mat-card-title>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Billing Address" formControlName="billingAddress">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Billing City" formControlName="billingCity">
+    </mat-form-field></td>
+
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Billing State" formControlName="billingState">
+    </mat-form-field></td>
+
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Billing Postal Code" formControlName="billingPostalCode">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Billing First Name" formControlName="billingFirstName">
+    </mat-form-field></td>
+
+  </tr></table>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Billing Last Name" formControlName="billingLastName">
+    </mat-form-field></td>
+  </tr></table>
+
+  <form [formGroup]="paymentInfoForm" (ngSubmit)="onPaymentSubmit()">
+  <mat-card-title fxLayoutAlign="center">Credit Card Details</mat-card-title>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Card Number" type="text" id="cardNumber" cc-eager-type name="ccNumber" formControlName="creditCardNumber">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Expiration Date" formControlName="expiryDate">
+      <mat-hint>08/20</mat-hint>
     </mat-form-field></td>
   </tr></table>
   <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Zipcode">
+      <input matInput placeholder="Security Code" formControlName="securityCode">
+      <mat-hint>123</mat-hint>
     </mat-form-field></td>
-    <mat-form-field>
-      <mat-label>State</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let state of States; let i = index">
-          {{this.state}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
   </tr></table>
-  <button mat-raised-button color="primary" fxLayoutAlign="center">Submit</button>
 
 
   <mat-divider></mat-divider>
+    <button mat-raised-button fxLayoutAlign="center center" color="primary" (click)="onSubmit()">Add</button>
+  </form>
+  </form>
 </mat-card>
+
