@@ -9,8 +9,11 @@ public class ShippingDetails {
     public String postalCode;
     public String email;
     public String phoneNumber;
+    public String billingFirstName;
+    public String billingLastName;
     public String billingAddress;
     public String billingCity;
     public String billingState;
     public String billingPostalCode;
+    public boolean billingMatchesShipping;
 }

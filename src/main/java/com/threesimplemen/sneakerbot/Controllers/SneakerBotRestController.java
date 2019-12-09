@@ -5,7 +5,9 @@ import com.threesimplemen.sneakerbot.Models.FoundShoe;
 import com.threesimplemen.sneakerbot.SeleniumController;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,9 +19,14 @@ public class SneakerBotRestController {
         this.seleniumController = new SeleniumController(new FoundShoe(), new ChromeDriver(), template);
     }
 
-    @RequestMapping("/findSneaker")
-    public FoundShoe findSneaker(Order order){
+    @PostMapping("/findSneaker")
+        public FoundShoe findSneaker(@RequestBody Order order){
         FoundShoe foundShoe = this.seleniumController.findSneaker(order);
         return foundShoe;
+    }
+
+    @GetMapping("/buySneakerConfirmation")
+    public void buySneakerConfirmation(){
+        seleniumController.completePayment();
     }
 }
