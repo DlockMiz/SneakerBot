@@ -34,7 +34,7 @@ import {TaskServiceService} from './Service/task-service.service';
     ProxiesComponent,
     ProfileComponent,
     CaptchaComponent,
-    AddTaskComponent
+    AddTaskComponent,
   ],
   imports: [
     BrowserModule,
