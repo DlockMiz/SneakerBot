@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -28,6 +29,7 @@ public class SeleniumController {
     }
 
     public FoundShoe findSneaker(Order order){
+        this.driver = new ChromeDriver();
         driver.get("https://www.nike.com/w/new-3n82y");
         this.order = order;
         findPicture();
