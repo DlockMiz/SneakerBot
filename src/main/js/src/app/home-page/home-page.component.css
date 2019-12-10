@@ -63,3 +63,33 @@
   padding-left: 20px;
 }
 
+.mat-card {
+  width: 500px;
+  height: 500px;
+}
+.space {
+  padding-left: 30%;
+}
+.mat-card-title {
+  color: 	#4250B5;
+  font-size: 30px;
+}
+.spaceRight {
+  padding-top: 20px;
+  padding-right: 25px;
+}
+.spaceButton {
+  padding-top: 20px;
+  padding-left: 45%;
+}
+.mat-table {
+  padding-top: 20px;
+  color: #4250B5;
+}
+.listContent {
+  padding-bottom: 70px;
+  color: grey;
+  font-size: 14px;
+  
+}
+

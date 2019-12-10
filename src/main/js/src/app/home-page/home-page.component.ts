@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, ElementRef} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {AddTaskComponent} from '../add-task/add-task.component';
 import {CommonModule} from '@angular/common';
@@ -28,6 +28,7 @@ public shippingJson: string;
 public paymentJson: string;
 public shoeJson: string;
 public finalPaylaod: string;
+public haveInfo: boolean = false;
 
 
   constructor (public dialog: MatDialog,
@@ -40,6 +41,7 @@ public finalPaylaod: string;
   ngOnInit() {
 
   }
+
 
   get ShippingInfoList() {
     this.shippingInfo = this._shippingInfoService.getAllShippingInfo();
@@ -60,16 +62,28 @@ public finalPaylaod: string;
 
 
 
-  addTask(){
+  addTask() {
 
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '425px',
       height: '490px'
     });
+    dialogRef.afterClosed().subscribe(() => {
+      if(this.shoelist[0] != null && this.ShippingInfoList[0] != null && this.paymentList[0] != null){
+        this.haveInfo = true;
+      }
+    });
+
+
+
   }
 
+
+
+
   clearTasks(){
-    this._taskService.removeAllTasks();
+    // this._taskService.removeAllTasks();
+    this.haveInfo = false;
   }
 
   startTask(){
@@ -87,17 +101,22 @@ public finalPaylaod: string;
       this.shoeJson = JSON.stringify(info);
 
     }
-    var obj = {
-      "shoe": this.shoelist[0],
-      "shippingDetails": this.ShippingInfoList[0],
-      "paymentInformation": this.paymentList[0]
-    }
-
-    axios.post("/findSneaker", obj).then(function(response){
-      console.log(response.data)
-    })
+    // var obj = {
+    //   "shoe": this.shoelist[0],
+    //   "shippingDetails": this.ShippingInfoList[0],
+    //   "paymentInformation": this.paymentList[0]
+    // }
+    //
+    // axios.post("/findSneaker", obj).then(function(response){
+    //   console.log(response.data)
+    // })
   }
 
+  getInfo(){
+    if(this.shoelist[0] != null && this.ShippingInfoList[0] != null && this.paymentList[0] != null){
+      this.haveInfo = true;
+    }
+  }
 
 
 }

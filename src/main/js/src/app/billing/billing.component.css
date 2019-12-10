@@ -8,3 +8,13 @@
 .mat-card-title {
   color: 	#4250B5;
 }
+.space {
+  padding-right: 10px;
+}
+.mat-form-field {
+  padding-right: 55px;
+}
+.hOne {
+  padding-left: 33%;
+  color: 	#4250B5;
+}

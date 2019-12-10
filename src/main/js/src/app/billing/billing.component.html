@@ -1,12 +1,16 @@
+<div class="hOne">
+<h1 *ngIf="hasBillingInfo" color="primary">Your card has been added successfully!</h1>
+</div>
+<title *ngIf="hasBillingInfo">Your card has been added successfully!</title>
 <mat-card fxLayout="column">
   <form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
   <mat-card-title fxLayoutAlign="center">Shipping Details</mat-card-title>
   <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="First Name" formControlName="firstName">
+      <input matInput placeholder="First Name" formControlName="firstName" class="space">
     </mat-form-field></td>
     <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="Last Name" formControlName="lastName">
+    <input fxLayoutAlign="right" matInput placeholder="Last Name" formControlName="lastName">
   </mat-form-field></td>
 
   </tr></table>
@@ -93,4 +97,5 @@
   </form>
   </form>
 </mat-card>
+
 
