@@ -76,7 +76,7 @@
 }
 .spaceRight {
   padding-top: 20px;
-  padding-right: 25px;
+  padding-right: 22px;
 }
 .spaceButton {
   padding-top: 20px;
@@ -87,8 +87,12 @@
   color: #4250B5;
 }
 .listContent {
-  padding-bottom: 70px;
+  padding-bottom: 55px;
   color: grey;
-  font-size: 14px;
+  font-size: 25px;
+}
+.matcardInfo {
+  width: 500px;
+  height: 500px;
 }
 

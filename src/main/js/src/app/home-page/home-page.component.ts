@@ -12,6 +12,8 @@ import {ShippingInfo} from "../Model/shipping-info";
 import {PaymentInfo} from "../Model/payment-info";
 import {Shoe} from "../Model/shoe";
 import axios from "axios";
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+
 
 
 @Component({
@@ -19,6 +21,7 @@ import axios from "axios";
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
+
 
 export class HomePageComponent implements OnInit {
 public shippingInfo: ShippingInfo[] = [];
@@ -29,17 +32,19 @@ public paymentJson: string;
 public shoeJson: string;
 public finalPaylaod: string;
 public haveInfo: boolean = false;
+public response: any;
 
 
   constructor (public dialog: MatDialog,
                public _taskService: TaskServiceService,
                public _shippingInfoService: ShippingInfoService,
                public _shoeService: ShoeService,
-               public _paymentService: PaymentInfoService) {
+               public _paymentService: PaymentInfoService,
+               public elementRef: ElementRef) {
   }
 
   ngOnInit() {
-
+    // this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'darkGrey';
   }
 
 
@@ -101,15 +106,32 @@ public haveInfo: boolean = false;
       this.shoeJson = JSON.stringify(info);
 
     }
-    // var obj = {
-    //   "shoe": this.shoelist[0],
-    //   "shippingDetails": this.ShippingInfoList[0],
-    //   "paymentInformation": this.paymentList[0]
-    // }
-    //
-    // axios.post("/findSneaker", obj).then(function(response){
-    //   console.log(response.data)
-    // })
+    var obj = {
+      "shoe": this.shoelist[0],
+      "shippingDetails": this.ShippingInfoList[0],
+      "paymentInformation": this.paymentList[0]
+    }
+
+    axios.post("/findSneaker", obj).then(function(response){
+      var shoe = {
+        "shoeName": "Air Jordan 1 High Zoom Fearless",
+        "shoeSize": "M 10.5 / W 12",
+        "shoePicture": "https://c.static-nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/sp6zvmshpfxuawpedyqn/air-jordan-1-high-zoom-fearless-shoe-6SxLcC.jpg"
+      }
+      this.response = shoe;
+      console.log(this.response);
+    })
+    // console.log(this.response);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: this.response,
+      width: '425px',
+      height: '530px'
+    });
+    dialogRef.afterClosed().subscribe(() => {
+         axios.post("/buySneakerConfirmation", obj).then(function(response){
+           // console.log(response.data);
+         });
+    });
   }
 
   getInfo(){

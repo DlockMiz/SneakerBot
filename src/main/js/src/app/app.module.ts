@@ -25,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddTaskComponent } from './add-task/add-task.component';
 import {HttpClientModule} from '@angular/common/http';
 import {TaskServiceService} from './Service/task-service.service';
+import { ConfirmDialogComponent } from './home-page/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {TaskServiceService} from './Service/task-service.service';
     ProfileComponent,
     CaptchaComponent,
     AddTaskComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,7 @@ import {TaskServiceService} from './Service/task-service.service';
     MatDialogModule,
     MatToolbarModule
   ],
-  entryComponents: [AddTaskComponent],
+  entryComponents: [AddTaskComponent, ConfirmDialogComponent],
   providers: [TaskServiceService],
   bootstrap: [AppComponent]
 })

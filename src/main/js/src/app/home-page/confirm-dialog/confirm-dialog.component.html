@@ -1,0 +1,16 @@
+<mat-card fxLayout="column">
+  <mat-card-title fxLayoutAlign="center">Confirm Purchase</mat-card-title>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td>
+      <mat-label fxLayoutAlign="left" class="listContent">Shoe Name: {{this.data.shoeName || ""}} </mat-label>
+      <mat-label fxLayoutAlign="left" class="listContent">Shoe size:  {{this.data.shoeSize || ""}}</mat-label>
+      <mat-label fxLayoutAlign="center" class="shoePic">Shoe Picture: </mat-label>
+      <div id="space">
+<!--      <img height="100px" width="100px" border="5px" fxLayoutAlign="center center" src="{{this.data.shoePicture}}">-->
+      </div>
+    </td>
+  </tr></table>
+  <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
+<button mat-raised-button color="primary" fxLayoutAlign="center" (click)="closeDialog()">Confirm</button>
+</mat-card>

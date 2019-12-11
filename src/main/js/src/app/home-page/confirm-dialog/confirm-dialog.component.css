@@ -1,0 +1,20 @@
+.listContent {
+  padding-bottom: 55px;
+  color: #4250B5;
+  font-size: 25px;
+}
+.mat-card-title {
+  color: 	#4250B5;
+  font-size: 30px;
+  text-decoration: underline;
+}
+#space {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 35%;
+  color: #4250B5;
+}
+.shoePic {
+  color: #4250B5;
+  font-size: 25px;
+}

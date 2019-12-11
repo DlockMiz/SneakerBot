@@ -1,3 +1,4 @@
+
 <!--<div fxLayout="row">-->
 <!--  <button class="newTask" mat-raised-button color="primary" fxLayoutAlign="left" (click)="addTask()">+ Add Shoe</button>-->
 <!--</div>-->
@@ -28,11 +29,11 @@
 <!--  </div>-->
 <!--</mat-card-content>-->
 <!--</mat-card>-->
+<div class="unicorn-dark-theme">
 <button class="newTask" mat-raised-button color="primary" fxLayoutAlign="left" (click)="addTask()">+ Add Shoe</button>
 <div class="space">
 <mat-card *ngIf="this.haveInfo" fxLayout="column">
 <mat-card-title fxLayoutAlign="center">Is this what you want to buy?</mat-card-title>
-  <mat-divider></mat-divider>
   <table class="example-full-width" cellspacing="0"><tr>
     <td>
       <mat-label fxLayoutAlign="center" class="listContent">Shoe Name: {{this.shoelist[0].shoeName}} </mat-label>
@@ -42,6 +43,15 @@
 
    </td>
   </tr></table>
+  <mat-card-title fxLayoutAlign="center">Is this how you want to pay?</mat-card-title>
+  <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td>
+      <mat-label fxLayoutAlign="center" class="listContent">Card name: {{this.shippingInfo[0].billingFirstName}} {{this.shippingInfo[0].billingLastName}} </mat-label>
+    </td>
+  </tr></table>
+
 <!--  <mat-card-content>{{this.shoelist[0].shoeName}}</mat-card-content>-->
 <!--  <mat-card-content>{{this.shoelist[0].shoeSize}}</mat-card-content>-->
 <!--  <mat-card-content>{{this.shoelist[0].shoeType}}</mat-card-content>-->
@@ -61,4 +71,5 @@
     <button [disabled]="!haveInfo" mat-raised-button class="clearTask"fxLayoutAlign="right" (click)="clearTasks()">Clear Info</button>
   </div>
 
+</div>
 </div>
