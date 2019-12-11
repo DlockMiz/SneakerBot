@@ -13,7 +13,8 @@ import {PaymentInfo} from "../Model/payment-info";
 import {Shoe} from "../Model/shoe";
 import axios from "axios";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
-import {$WebSocket, WebSocketSendMode} from 'angular2-websocket/angular2-websocket';
+import { WebSocketAPI } from '../WebSocketAPI';
+
 
 
 @Component({
@@ -33,9 +34,8 @@ public shoeJson: string;
 public finalPaylaod: string;
 public haveInfo: boolean = false;
 public response: any;
-public ws = new $WebSocket("ws://localhost/order");
 public webSocket: any;
-//public ws = new $WebSocket("ws://localhost/shoe_status");
+webSocketAPI: WebSocketAPI;
 
   constructor (public dialog: MatDialog,
                public _taskService: TaskServiceService,
@@ -46,14 +46,22 @@ public webSocket: any;
   }
 
   ngOnInit() {
-    // this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'darkGrey';
-    this.ws.onMessage(
-      (msg: MessageEvent)=> {
-        console.log("onMessage ", msg.data);
-        this.webSocket = msg.data;
-      },
-      {autoApply: false}
-    );
+    this.webSocketAPI = new WebSocketAPI();
+  }
+  connect(){
+    this.webSocketAPI._connect();
+  }
+
+  disconnect(){
+    this.webSocketAPI._disconnect();
+  }
+
+  sendMessage(){
+    // this.webSocketAPI._send(this.name);
+  }
+
+  handleMessage(message){
+    console.log(message)
   }
 
 
