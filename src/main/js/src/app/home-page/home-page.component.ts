@@ -13,7 +13,7 @@ import {PaymentInfo} from "../Model/payment-info";
 import {Shoe} from "../Model/shoe";
 import axios from "axios";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
-import { WebSocketAPI } from '../WebSocketAPI';
+import { WebSocketService } from '../WebSocketAPI';
 
 
 
@@ -35,7 +35,7 @@ public finalPaylaod: string;
 public haveInfo: boolean = false;
 public response: any;
 public webSocket: any;
-webSocketAPI: WebSocketAPI;
+webSocketAPI: WebSocketService;
 
   constructor (public dialog: MatDialog,
                public _taskService: TaskServiceService,
@@ -46,22 +46,12 @@ webSocketAPI: WebSocketAPI;
   }
 
   ngOnInit() {
-    this.webSocketAPI = new WebSocketAPI();
-  }
-  connect(){
-    this.webSocketAPI._connect();
-  }
-
-  disconnect(){
-    this.webSocketAPI._disconnect();
-  }
-
-  sendMessage(){
-    // this.webSocketAPI._send(this.name);
-  }
-
-  handleMessage(message){
-    console.log(message)
+    let stompClient = this.webSocketAPI.connect();
+    stompClient.connect({}, frame => {
+      stompClient.subscribe('/shoe_status', msg => {
+        console.log(msg)
+      })
+    });
   }
 
 
