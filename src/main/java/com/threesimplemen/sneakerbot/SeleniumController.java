@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 
@@ -29,8 +27,6 @@ public class SeleniumController {
     }
 
     public FoundShoe findSneaker(Order order){
-        this.driver = new ChromeDriver();
-        driver.get("https://www.nike.com/w/new-3n82y");
         this.order = order;
         findPicture();
         List<WebElement> shoeList = driver.findElements(By.cssSelector("figure"));
@@ -52,12 +48,22 @@ public class SeleniumController {
     }
 
     private void findSize(){
-        List<WebElement> labelsList = new ArrayList<>();
-        List<WebElement> inputSizes = driver.findElements(By.xpath("//*[contains(@name,'skuAndSize')]"));
-        for(WebElement input: inputSizes){
-            String finalNum = input.getAttribute("value").split(":")[0];
-            labelsList.add(driver.findElement(By.xpath("//*[contains(@for,'skuAndSize__"+finalNum+"')]")));
-        }
+//        List<WebElement> labelsList = new ArrayList<>();
+//        List<WebElement> inputSizes = driver.findElements(By.xpath("//*[contains(@name,'skuAndSize')]"));
+//        for(WebElement input: inputSizes){
+//            String finalNum = input.getAttribute("value").split(":")[0];
+//            labelsList.add(driver.findElement(By.xpath("//*[contains(@for,'skuAndSize__"+finalNum+"')]")));
+//        }
+//        for(WebElement label: labelsList){
+//            if(label.getText().matches(this.order.shoe.shoeSize)){
+
+//            }
+//        }
+
+
+        System.out.println("start");
+        WebElement sizeField = driver.findElement(By.xpath("//fieldset[contains(@class,'body-baseline-base')]"));
+        List<WebElement> labelsList = sizeField.findElements(By.tagName("label"));
         for(WebElement label: labelsList){
             if(label.getText().matches(this.order.shoe.shoeSize)){
                 template.convertAndSend("/shoe_status", "Finding Size");
@@ -83,18 +89,16 @@ public class SeleniumController {
 
     private void fillShipping() {
         String address = this.order.shippingDetails.billingAddress +" "+ this.order.shippingDetails.billingCity +" "+ this.order.shippingDetails.billingState +" "+ this.order.shippingDetails.billingPostalCode;
-
         template.convertAndSend("/shoe_status", "Filling Shipping Information");
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("firstName")));
+        stallThread(1000);
         driver.findElement(By.id("firstName")).sendKeys(this.order.shippingDetails.billingFirstName);
         driver.findElement(By.id("lastName")).sendKeys(this.order.shippingDetails.billingLastName);
         driver.findElement(By.id("address1")).sendKeys(address);
         driver.findElement(By.id("email")).sendKeys(this.order.shippingDetails.email);
         driver.findElement(By.id("phoneNumber")).sendKeys(this.order.shippingDetails.phoneNumber + Keys.RETURN);
-        stallThread(500);
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("saveAddressBtn")));
+        stallThread(1000);
         driver.findElement(By.xpath("//button[contains(@class,'saveAddressBtn')]")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("continuePaymentBtn")));
+        stallThread(1000);
         driver.findElement(By.xpath("//button[contains(@class,'continuePaymentBtn')]")).click();
     }
 
@@ -112,6 +116,7 @@ public class SeleniumController {
 
     public void completePayment(){
         driver.findElement(By.xpath("//button[contains(@class,'d-lg-ib')]")).click();
+        driver.get("https://www.nike.com/w/new-3n82y");
     }
 
     private void stallThread(int time){
