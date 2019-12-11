@@ -7,7 +7,7 @@ export class WebSocketService {
 
   // Open connection with the back-end socket
   public connect() {
-    let socket = new SockJs(`http://localhost:8080/socket`);
+    let socket = new SockJs(`http://localhost:8080/shoe_status`);
 
     let stompClient = Stomp.over(socket);
 
