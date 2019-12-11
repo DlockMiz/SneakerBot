@@ -12,12 +12,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/order", "/shoe_status").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/shoe_status").setAllowedOrigins("*").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config){
-        config.enableSimpleBroker("/order", "/shoe_status");
+        config.enableSimpleBroker("/shoe_status");
         config.setApplicationDestinationPrefixes("/app");
     }
 }

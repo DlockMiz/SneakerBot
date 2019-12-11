@@ -29,11 +29,14 @@
 <!--  </div>-->
 <!--</mat-card-content>-->
 <!--</mat-card>-->
+
 <div class="unicorn-dark-theme">
 <script>
     var global = window;
 </script>
 <button class="newTask" mat-raised-button color="primary" fxLayoutAlign="left" (click)="addTask()">+ Add Shoe</button>
+  <h1 fxLayoutAlign="center">{{this.webSocket}}</h1>
+
 <div class="space">
 <mat-card *ngIf="this.haveInfo" fxLayout="column">
 <mat-card-title fxLayoutAlign="center">Is this what you want to buy?</mat-card-title>
@@ -61,16 +64,11 @@
 <!--  <mat-card-content>{{this.shoelist[0].shoeColor}}</mat-card-content>-->
 </mat-card>
 </div>
-<!--<div class="space">-->
-<!--<mat-card *ngIf="!this.haveInfo" fxLayoutAlign="center center">-->
-<!--  <mat-card-title fxLayoutAlign="center center">Fill in your info to buy a shoe!</mat-card-title>-->
-<!--</mat-card>-->
-<!--</div>-->
-  <div class="space">
-    <mat-card *ngIf="!this.haveInfo" fxLayoutAlign="center center">
-      <mat-card-title fxLayoutAlign="center center">{{this.webSocket}}</mat-card-title>
-    </mat-card>
-  </div>
+<div class="space">
+<mat-card *ngIf="!this.haveInfo" fxLayoutAlign="center center">
+  <mat-card-title fxLayoutAlign="center center">Fill in your info to buy a shoe!</mat-card-title>
+</mat-card>
+</div>
 <div fxLayout="row">
   <div class="spaceButton">
 <button [disabled]="!haveInfo" mat-raised-button class="startTasks" fxLayoutAlign="center" (click)="startTask()">Buy Shoe</button>

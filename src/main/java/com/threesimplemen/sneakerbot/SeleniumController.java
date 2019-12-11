@@ -28,7 +28,7 @@ public class SeleniumController {
 
     public FoundShoe findSneaker(Order order){
         this.order = order;
-        findPicture();
+//        findPicture();
         List<WebElement> shoeList = driver.findElements(By.cssSelector("figure"));
 
         for(WebElement figure: shoeList){
@@ -48,20 +48,6 @@ public class SeleniumController {
     }
 
     private void findSize(){
-//        List<WebElement> labelsList = new ArrayList<>();
-//        List<WebElement> inputSizes = driver.findElements(By.xpath("//*[contains(@name,'skuAndSize')]"));
-//        for(WebElement input: inputSizes){
-//            String finalNum = input.getAttribute("value").split(":")[0];
-//            labelsList.add(driver.findElement(By.xpath("//*[contains(@for,'skuAndSize__"+finalNum+"')]")));
-//        }
-//        for(WebElement label: labelsList){
-//            if(label.getText().matches(this.order.shoe.shoeSize)){
-
-//            }
-//        }
-
-
-        System.out.println("start");
         WebElement sizeField = driver.findElement(By.xpath("//fieldset[contains(@class,'body-baseline-base')]"));
         List<WebElement> labelsList = sizeField.findElements(By.tagName("label"));
         for(WebElement label: labelsList){
@@ -107,16 +93,22 @@ public class SeleniumController {
         if(this.order.shippingDetails.billingMatchesShipping){
             template.convertAndSend("/shoe_status", "Filling Payment Information");
             driver.switchTo().frame(driver.findElement(By.className("credit-card-iframe")));
-            driver.findElement(By.id("creditCardNumber")).sendKeys(this.order.paymentInformation.creditCardNumber);
+            stallThread(1500);
+            driver.findElement(By.id("creditCardNumber")).sendKeys("375240452507246");
+            stallThread(1500);
             driver.findElement(By.id("expirationDate")).sendKeys(this.order.paymentInformation.expiryDate);
             driver.findElement(By.id("cvNumber")).sendKeys(this.order.paymentInformation.securityCode);
+            stallThread(1500);
             driver.switchTo().defaultContent();
+            stallThread(1500);
+            driver.findElement(By.xpath("//button[contains(@class,'d-lg-ib')]")).click();
         }
     }
 
     public void completePayment(){
+        stallThread(1000);
         driver.findElement(By.xpath("//button[contains(@class,'d-lg-ib')]")).click();
-        driver.get("https://www.nike.com/w/new-3n82y");
+//        driver.get("https://www.nike.com/w/new-3n82y");
     }
 
     private void stallThread(int time){

@@ -111,12 +111,7 @@ public webSocketAPI: WebSocketService;
     }
 
     axios.post("/findSneaker", obj).then(function(response){
-      var shoe = {
-        "shoeName": "Air Jordan 1 High Zoom Fearless",
-        "shoeSize": "M 10.5 / W 12",
-        "shoePicture": "https://c.static-nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/sp6zvmshpfxuawpedyqn/air-jordan-1-high-zoom-fearless-shoe-6SxLcC.jpg"
-      }
-      this.response = shoe;
+      this.response = response.data;
       console.log(this.response);
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         data: this.response,

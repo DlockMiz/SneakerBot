@@ -18,7 +18,6 @@ public class SneakerBotRestController {
 
     public SneakerBotRestController(SimpMessageSendingOperations template){
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver");
-//        WebDriver driver = new ChromeDriver();
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-gpu", "--blink-settings=imagesEnabled=false");
@@ -31,6 +30,7 @@ public class SneakerBotRestController {
     @PostMapping("/findSneaker")
         public FoundShoe findSneaker(@RequestBody Order order){
         FoundShoe foundShoe = this.seleniumController.findSneaker(order);
+//        seleniumController.completePayment();
         return foundShoe;
     }
 
