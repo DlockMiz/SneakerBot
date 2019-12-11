@@ -3,7 +3,9 @@ package com.threesimplemen.sneakerbot.Controllers;
 import com.threesimplemen.sneakerbot.Models.Order;
 import com.threesimplemen.sneakerbot.Models.FoundShoe;
 import com.threesimplemen.sneakerbot.SeleniumController;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +18,14 @@ public class SneakerBotRestController {
 
     public SneakerBotRestController(SimpMessageSendingOperations template){
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver");
-        this.seleniumController = new SeleniumController(new FoundShoe(), new ChromeDriver(), template);
+//        WebDriver driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-gpu", "--blink-settings=imagesEnabled=false");
+        WebDriver driver = new ChromeDriver(options);
+
+        driver.get("https://www.nike.com/w/new-3n82y");
+        this.seleniumController = new SeleniumController(new FoundShoe(), driver, template);
     }
 
     @PostMapping("/findSneaker")
