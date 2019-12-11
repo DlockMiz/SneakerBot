@@ -13,7 +13,7 @@ import {PaymentInfo} from "../Model/payment-info";
 import {Shoe} from "../Model/shoe";
 import axios from "axios";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
-
+import {$WebSocket, WebSocketSendMode} from 'angular2-websocket/angular2-websocket';
 
 
 @Component({
@@ -33,7 +33,9 @@ public shoeJson: string;
 public finalPaylaod: string;
 public haveInfo: boolean = false;
 public response: any;
-
+public ws = new $WebSocket("ws://localhost/order");
+public webSocket: any;
+//public ws = new $WebSocket("ws://localhost/shoe_status");
 
   constructor (public dialog: MatDialog,
                public _taskService: TaskServiceService,
@@ -45,6 +47,13 @@ public response: any;
 
   ngOnInit() {
     // this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = 'darkGrey';
+    this.ws.onMessage(
+      (msg: MessageEvent)=> {
+        console.log("onMessage ", msg.data);
+        this.webSocket = msg.data;
+      },
+      {autoApply: false}
+    );
   }
 
 
@@ -96,16 +105,6 @@ public response: any;
     this.shoelist;
     this.paymentList;
 
-    for(let info of this.shippingInfo){
-      this.shippingJson = JSON.stringify(info);
-    }
-    for(let info of this.paymentInfo){
-      this.paymentJson = JSON.stringify(info);
-    }
-    for(let info of this.shoeInfo){
-      this.shoeJson = JSON.stringify(info);
-
-    }
     var obj = {
       "shoe": this.shoelist[0],
       "shippingDetails": this.ShippingInfoList[0],
@@ -120,19 +119,20 @@ public response: any;
       }
       this.response = shoe;
       console.log(this.response);
-    })
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: this.response,
+        width: '425px',
+        height: '530px'
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        axios.post("/buySneakerConfirmation", obj).then(function(response){
+          // console.log(response.data);
+        });
+      });
+    });
     // console.log(this.response);
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: this.response,
-      width: '425px',
-      height: '530px'
-    });
-    dialogRef.afterClosed().subscribe(() => {
-         axios.post("/buySneakerConfirmation", obj).then(function(response){
-           // console.log(response.data);
-         });
-    });
   }
+
 
   getInfo(){
     if(this.shoelist[0] != null && this.ShippingInfoList[0] != null && this.paymentList[0] != null){
